@@ -6,13 +6,11 @@ try {
     echo json_encode(array('erreur' => 'Connexion BDD impossible'));
     die();
 }
-
 $req_methode = $_SERVER['REQUEST_METHOD'];
 if(isset($_SERVER['PATH_INFO'])){
     $req_path=$_SERVER['PATH_INFO'];
     $req_data=explode('/',$req_path);
 }
-
 
 if ($req_methode == 'GET') {
     if (count($req_data) == 1 && $req_data[0] == 'capteur') {
@@ -20,7 +18,8 @@ if ($req_methode == 'GET') {
         $req_prep = $maConnexion->prepare($requete);
         $req_prep->execute(NULL);
         $resultat = $req_prep->fetchAll(PDO::FETCH_ASSOC);
-        reponse_json($resultat);
+        $data_json=json_encode($resultat);
+        print_r($data_json);
     }
 
     if (count($req_data) == 2 && $req_data[0] == 'capteur' && $req_data[1] == 'etat') {
@@ -28,7 +27,8 @@ if ($req_methode == 'GET') {
         $req_prep = $maConnexion->prepare($requete);
         $req_prep->execute(NULL);
         $resultat = $req_prep->fetchAll(PDO::FETCH_ASSOC);
-        reponse_json($resultat);
+        $data_json=json_encode($resultat);
+        print_r($data_json);
     }
 
     if (count($req_data) == 2 && $req_data[0] == 'capteur' && $req_data[1] == 'configuration') {
@@ -36,7 +36,8 @@ if ($req_methode == 'GET') {
         $req_prep = $maConnexion->prepare($requete);
         $req_prep->execute(NULL);
         $resultat = $req_prep->fetchAll(PDO::FETCH_ASSOC);
-        reponse_json($resultat);
+        $data_json=json_encode($resultat);
+        print_r($data_json);
     }
 
     if (count($req_data) == 3 && $req_data[0] == 'capteur' && $req_data[1] == 'etat') {
@@ -46,7 +47,8 @@ if ($req_methode == 'GET') {
         $req_prep->bindValue(':numero', $numero, PDO::PARAM_INT);
         $req_prep->execute();
         $resultat = $req_prep->fetchAll(PDO::FETCH_ASSOC);
-        reponse_json($resultat);
+        $data_json=json_encode($resultat);
+        print_r($data_json);
     }
 
     if (count($req_data) == 3 && $req_data[0] == 'capteur' && $req_data[1] == 'configuration') {
@@ -56,7 +58,8 @@ if ($req_methode == 'GET') {
         $req_prep->bindValue(':numero', $numero, PDO::PARAM_INT);
         $req_prep->execute();
         $resultat = $req_prep->fetchAll(PDO::FETCH_ASSOC);
-        reponse_json($resultat);
+        $data_json=json_encode($resultat);
+        print_r($data_json);
     }
 }
 ?>
