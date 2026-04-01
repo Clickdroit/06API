@@ -11,7 +11,7 @@ function AfficherPlanHTML(){
             //section.innerHTML = reponse;
         }
     };
-    xhttp.open("GET", "plan.html");
+    xhttp.open("GET", "http://172.20.21.51/M06/rest.php/capteur/etat");
     xhttp.send();
 }
 
@@ -22,16 +22,20 @@ function AfficherListeHTML(){
             var reponse = this.responseText;
             var reponseListe = JSON.parse(reponse);
             var section = document.getElementById("section");
-            section.innerHTML = "";
+            capteur = "<div class='capteur-table'><table><tr><th>Nom</th><th>Type</th><th>Numéro</th><th>Etat</th><th>Hauteur</th><th>Éclairage</th></tr>";
             for(var i = 0; i < reponseListe.length; i++){
                 var item = reponseListe[i];
                 var nom = item.nom;
-                var description = item.description;
+                var etat = item.etat;
                 var numero = item.numero;
                 var type = item.type;
-                console.log("ID: "+i+" Nom: "+nom+" Description: "+description+" Numero: "+numero+" Type: "+type);
-                section.innerHTML += "<div class='capteur-table'><table><tr><th>Nom</th><th>Description</th><th>Numéro</th><th>Type</th></tr><tr><td>"+nom+"</td><td>"+description+"</td><td>"+numero+"</td><td>"+type+"</td></tr></table></div>";
+                var hauteur = item.hauteur;
+                var eclairage = item.eclairage;
+
+                console.log("ID: "+i+" Nom: "+nom+" Type: "+type+" Numero: "+numero+" Etat: "+etat+" Hauteur: "+hauteur+" Éclairage: "+eclairage);
+                capteur = capteur + "<tbody><tr><td>"+nom+"</td><td>"+type+"</td><td>"+numero+"</td><td>"+etat+"</td><td>"+hauteur+"</td><td>"+eclairage+"</td></tr></tbody>";
             }
+            section.innerHTML = capteur + "</table></div>";
         }
     };
     xhttp.open("GET", "http://172.20.21.51/M06/rest.php/capteur");

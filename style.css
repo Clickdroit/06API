@@ -51,11 +51,11 @@ nav {
 	border: 1px solid #8d9aac;
 	padding: 40px 10px;
 	text-align: center;
-	font-size: 12px;
+	font-size: 20px;
+	width: 300px;
 }
 
 .capteur-table thead th {
 	background-color: #d9b455;
 	color: #1f1f1f;
 }
-
