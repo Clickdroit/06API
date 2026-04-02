@@ -59,3 +59,15 @@ nav {
 	background-color: #d9b455;
 	color: #1f1f1f;
 }
+.vert{
+    background-color: green;
+}
+.rouge{
+    background-color: red;
+}
+#vert{
+    background-color: green;
+}
+#rouge{
+    background-color: red;
+}
