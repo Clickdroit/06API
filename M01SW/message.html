@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Présentation des journaux lumineux</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <section id="message">
+
+        <h1>Envoi d'un message</h1>
+
+
+        <form method="POST" action="rest.php">
+        <label for="afficheur_id">Sélectionner un afficheur :</label>
+        <select id="afficheur_id" name="ip_journal">
+            <option value="172.20.21.230">CP A</option>
+            <option value="172.20.21.231">CP B</option>
+            <option value="172.20.21.232">CE1 A</option>
+            <option value="172.20.21.233">CE1 B</option>
+            <option value="172.20.21.234">CE2 A</option>
+            <option value="172.20.21.235">CE2 B</option>
+            <option value="172.20.21.236">CM1 A</option>
+            <option value="172.20.21.237">CM1 B</option>
+            <option value="172.20.21.238">CM2 A</option>
+            <option value="172.20.21.239">CM2 B</option>
+            <option value="172.20.21.29">A7</option>
+        </select>
+        <div>
+            <label for="message-id">Message à envoyer : </label>
+            <input type="message-id" name="texte" id="texte"/>
+        </div>
+        <div>
+            <label for="apparition_id">Effet d'apparition</label>
+            <select name="effetapparition" id="apparition_id">
+                <option value="FE">Gauche à droite</option>
+            </select>
+        </div>
+                <div>
+            <label for="affichage_id">Effet d'apparition</label>
+            <select name="effetaffichage" id="affichage_id">
+                <option value="MA">Normal</option>
+            </select>
+        </div>
+                <div>
+            <label for="dureeaffichage_id">Effet d'apparition</label>
+            <select name="dureeaffichage" id="dureeaffichage_id">
+                <option value="WC">Durée d'affichage</option>
+            </select>
+        </div>
+                <div>
+            <label for="disparition_id">Effet d'apparition</label>
+            <select name="effetdisparition" id="disparition_id">
+                <option value="FE">Effet disparition</option>
+            </select>
+        </div>
+        <div>
+            <input type="submit" name="submit_SW06" value="Valider" />
+        </div>
+        </form>
+    </section>
+</body>
+</html>
