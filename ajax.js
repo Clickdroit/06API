@@ -14,6 +14,7 @@ function AfficherPlanHTML(){
                 var nom = item.nom;
                 var etat = item.etat;
                 console.log("ID: "+i+" Nom: "+nom+" Etat: "+etat);
+                console.log("Ambre")
                 if(etat == "Libre"){
                     div[i].classList.add("libre");
                     div[i].classList.remove("occupee");
@@ -62,6 +63,7 @@ function AfficherListeHTML(){
             }
             section.innerHTML = capteur + "</table></div>";
         }
+        
     };
     xhttp.open("GET", "http://172.20.21.51/M06/rest.php/capteur");
     xhttp.send();
