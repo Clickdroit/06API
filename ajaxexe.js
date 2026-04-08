@@ -10,6 +10,7 @@ function ajax() {
       var ville = "Ville: " + reponseMeteo.name;
       document.getElementById("ville_meteo").innerHTML = ville;
       var icone = reponseMeteo.weather[0].icon;
+      console.log("Melissa")
       document.getElementById("icone_meteo").src =
         "https://openweathermap.org/img/wn/" + icone + "@2x.png";
 
