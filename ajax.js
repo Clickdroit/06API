@@ -29,7 +29,7 @@ function AfficherPlanHTML(){
             }
         }
     };
-    xhttp.open("GET", "http://172.20.21.51/M06/rest.php/capteur/etat");
+    xhttp.open("GET", "http://172.20.21.25/06API/rest.php/capteur/etat");
     xhttp.send();
 }
 
@@ -65,6 +65,6 @@ function AfficherListeHTML(){
         }
         
     };
-    xhttp.open("GET", "http://172.20.21.51/M06/rest.php/capteur");
+    xhttp.open("GET", "http://172.20.21.25/06API/rest.php/capteur");
     xhttp.send();
 }
