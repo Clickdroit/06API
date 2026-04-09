@@ -1,6 +1,6 @@
 Une marocaine au portugal 
 
- amélioration du projet :
+ Amélioration du projet :
  - Améliorée l'aestetic de l'interphace
  - Inserer dans le sql l'heure, la date et dans l'ordre
  - Insérer le langage python dans le projet 
@@ -9,5 +9,6 @@ Une marocaine au portugal
  - Compléter le rest.php 
  - Corriger le sql 
  - Réaliser le plan UML
+ - SUIVRE LES ATTENDUES !!!
 
- A réaliser :
+ Taches a réaliséS :
