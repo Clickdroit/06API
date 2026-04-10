@@ -35,18 +35,29 @@ while(1){
             echo "La place est libre ! \r\n";
         }
         if($etat=="01") {
-            $etatt = "Occupée";
+            $etatt = "Occupee";
             echo "La place est occupée ! \r\n";
         }
-
-        $insert = "INSERT INTO etat (etat, date_heure, id_capteur) VALUES (?, NOW(), ?)";
-        $req_prep_insert = $pdo->prepare($insert);
-        $req_prep_insert->bindParam(1, $etatt);
-        $req_prep_insert->bindParam(2, $resultat[$i]['id']);
-        $req_prep_insert->execute();
+        $req_dernier = $pdo->prepare("SELECT etat FROM etat WHERE id_capteur = ? ORDER BY id DESC LIMIT 1");
+        $req_dernier->bindParam(1, $resultat[$i]['id']);
+        $req_dernier->execute();
+        $donnees = $req_dernier->fetch(PDO::FETCH_ASSOC);
+        
+        $dernier_etat_enregistre = "";
+        if ($donnees != false) {
+            $dernier_etat_enregistre = $donnees['etat'];
+        }
+        if ($etatt != $dernier_etat_enregistre) {
+            $insert = "INSERT INTO etat (etat, date_heure, id_capteur) VALUES (?, NOW(), ?)";
+            $req_prep_insert = $pdo->prepare($insert);
+            $req_prep_insert->bindParam(1, $etatt);
+            $req_prep_insert->bindParam(2, $resultat[$i]['id']);
+            $req_prep_insert->execute();
+            echo "-> SAUVEGARDE EN BDD : on enregistre le nouvel état.\r\n";
+        } else {
+            echo "-> PAS DE SAUVEGARDE : la place est toujours dans le même état.\r\n";
+        }        
         print_r("\r\n------------------------------------------------------------------------------------------------\r\n\r\n");
-        
-        
     }
     sleep(60);
 }

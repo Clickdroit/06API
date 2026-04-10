@@ -1,70 +1,137 @@
-document.getElementById('planNAV').addEventListener('click',AfficherPlanHTML);
-document.getElementById('capteursNAV').addEventListener('click',AfficherListeHTML);
+// ajax.js - Projet Cirpark
+// Maxime, Ambre, Melissa
+document.getElementById('planNAV').addEventListener('click', AfficherPlanHTML);
+document.getElementById('capteursNAV').addEventListener('click', AfficherListeHTML);
+setInterval(function() {
+    var date = new Date();
+    document.getElementById('horloge').innerHTML = date.toLocaleString('fr-FR');
+}, 1000);
 
-
-function AfficherPlanHTML(){
+function AfficherPlanHTML() {
     var xhttp = new XMLHttpRequest();
+
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var reponse = this.responseText;
-            var reponsePlan = JSON.parse(reponse);
-            var div = document.getElementsByClassName("place");
-            for(var i = 0; i < reponsePlan.length; i++){
-                var item = reponsePlan[i];
-                var nom = item.nom;
-                var etat = item.etat;
-                console.log("ID: "+i+" Nom: "+nom+" Etat: "+etat);
-                console.log("Ambre")
-                if(etat == "Libre"){
-                    div[i].classList.add("libre");
-                    div[i].classList.remove("occupee");
-                    div = "<div id='vert' class='place'></div>"
+            var donnees = JSON.parse(reponse);
+            var section = document.getElementById("section");
+
+            // On construit le HTML du parking
+            var html = "<h3>Plan du Parking</h3><br>";
+            html += "<div id='parking'>";
+            var index = 0;
+
+            // On fait 4 rangées de 16 places
+            for (var n = 1; n <= 4; n++) {
+                html += "<div id='range" + n + "'>";
+
+                for (var p = 0; p < 16; p++) {
+                    if (index < donnees.length) {
+                        var capteur = donnees[index];
+
+                        // Si le capteur est libre on met vert, sinon rouge
+                        var couleur = (capteur.etat == "Libre") ? "place vert" : "place rouge";
+
+                        // Texte qui s'affiche au survol de la souris
+                        var texte = "Capteur " + capteur.nom + " | " + capteur.etat + " depuis le " + capteur.date_heure;
+                        html += "<div class='" + couleur + "' data-info='" + texte + "'></div>";
+                    } else {
+                        html += "<div class='place'></div>";
+                    }
+                    index++;
                 }
-                else if(etat == "Occupee"){
-                    div[i].classList.add("occupee");
-                    div[i].classList.remove("libre");
-                    div = "<div id='rouge' class='place'></div>"
+
+                html += "</div>";
+
+                // On ajoute un chemin entre la rangée 1-2 et 3-4
+                if (n == 1 || n == 3) {
+                    html += "<div id='chemin'></div>";
                 }
-                window.location.href = "plan/plan.html";
             }
+
+            html += "</div>";
+            section.innerHTML = html;
         }
     };
-    xhttp.open("GET", "http://172.20.21.25/06API/rest.php/capteur/etat");
+
+    xhttp.open("GET", "rest.php/capteur");
     xhttp.send();
 }
 
-function AfficherListeHTML(){
+// Cette fonction affiche la liste des capteurs dans un tableau
+function AfficherListeHTML() {
     var xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var reponse = this.responseText;
-            var reponseListe = JSON.parse(reponse);
+            var donnees = JSON.parse(reponse);
             var section = document.getElementById("section");
-            
-            capteur = "<div class='capteur-table'><table><tr><th>Nom</th><th>Type</th><th>Numéro</th><th>Etat</th><th>Hauteur</th><th>Éclairage</th></tr>";
-            for(var i = 0; i < reponseListe.length; i++){
-                var item = reponseListe[i];
-                var nom = item.nom;
-                var etat = item.etat;
-                var numero = item.numero;
-                var type = item.type;
-                var hauteur = item.hauteur;
-                var eclairage = item.eclairage;
 
+            // Creation du tableau HTML
+            var html = "<h3>Liste des Capteurs (Cliquez sur un capteur pour voir son historique)</h3>";
+            html += "<div class='capteur-table'>";
+            html += "<table>";
+            html += "<tr><th>Nom</th><th>Type</th><th>Numéro</th><th>Etat</th><th>Hauteur</th><th>Éclairage</th></tr>";
 
-                console.log("ID: "+i+" Nom: "+nom+" Type: "+type+" Numero: "+numero+" Etat: "+etat+" Hauteur: "+hauteur+" Éclairage: "+eclairage);
-                if(etat == "Libre"){
-                    capteur = capteur + "<tbody><tr><td>"+nom+"</td><td>"+type+"</td><td>"+numero+"</td><td class='vert'>"+etat+"</td><td>"+hauteur+"</td><td>"+eclairage+"</td></tr></tbody>";
-                }
-                else if(etat == "Occupee"){
-                    capteur = capteur + "<tbody><tr><td>"+nom+"</td><td>"+type+"</td><td>"+numero+"</td><td class='rouge'>"+etat+"</td><td>"+hauteur+"</td><td>"+eclairage+"</td></tr></tbody>";
-                }
+            // On parcourt tous les capteurs
+            for (var i = 0; i < donnees.length; i++) {
+                var capteur = donnees[i];
+
+                // On choisit la couleur selon l'etat
+                var couleur = (capteur.etat == "Libre") ? "vert" : "rouge";
+
+                // Quand on clique sur la ligne ca ouvre l'historique
+                html += "<tr onclick='AfficherHistoriqueCapteur(" + capteur.id + ")' style='cursor:pointer;' title='Voir Historique'>";
+                html += "<td>" + capteur.nom + "</td>";
+                html += "<td>" + capteur.type + "</td>";
+                html += "<td>" + capteur.numero + "</td>";
+                html += "<td class='" + couleur + "'>" + capteur.etat + "</td>";
+                html += "<td>" + capteur.hauteur + "</td>";
+                html += "<td>" + capteur.eclairage + "</td>";
+                html += "</tr>";
             }
-            section.innerHTML = capteur + "</table></div>";
+
+            html += "</table></div>";
+            section.innerHTML = html;
         }
-        
     };
-    xhttp.open("GET", "http://172.20.21.25/06API/rest.php/capteur");
+
+    xhttp.open("GET", "rest.php/capteur");
+    xhttp.send();
+}
+
+// Cette fonction affiche l'historique d'un seul capteur
+function AfficherHistoriqueCapteur(idCapteur) {
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var donnees = JSON.parse(this.responseText);
+            var section = document.getElementById("section");
+
+            // Bouton retour pour revenir a la liste
+            var html = "<button class='btn-gris' onclick='AfficherListeHTML()'>⬅ Retour aux Capteurs</button>";
+            html += "<h3>Historique du Capteur N°" + idCapteur + "</h3>";
+            html += "<table>";
+            html += "<tr><th>Date et Heure</th><th>Etat</th></tr>";
+
+            // On affiche chaque ligne de l'historique
+            for (var i = 0; i < donnees.length; i++) {
+                var ligne = donnees[i];
+                var couleur = (ligne.etat == "Libre") ? "vert" : "rouge";
+
+                html += "<tr>";
+                html += "<td>" + ligne.date_heure + "</td>";
+                html += "<td class='" + couleur + "'>" + ligne.etat + "</td>";
+                html += "</tr>";
+            }
+
+            html += "</table>";
+            section.innerHTML = html;
+        }
+    };
+
+    xhttp.open("GET", "rest.php/capteur/etat/" + idCapteur);
     xhttp.send();
 }

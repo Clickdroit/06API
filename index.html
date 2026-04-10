@@ -3,102 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Cirpark — Tableau de bord de gestion des capteurs et du plan de parking">
+    <title>Projet Cirpark - BTS CIEL-IR 1</title>
     <link rel="stylesheet" href="style.css">
-    <title>Cirpark — Dashboard</title>
 </head>
 <body>
 
-<div class="app">
-  <!-- Top bar -->
-  <div class="topbar">
-    <div class="logo">
-      <div class="logo-mark">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5" stroke="white" stroke-width="1.5"/><path d="M5 7l1.5 1.5L9 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
-      <span class="logo-text">Clickdroit <span>/ 06API</span></span>
-    </div>
-    <div class="nav-links">
-      <button class="nav-link active">Dashboard</button>
-      <button class="nav-link">Logs</button>
-      <button class="nav-link">Docs</button>
-    </div>
-    <span class="badge">v0.6</span>
-  </div>
+    <!-- En-tête du site -->
+    <header style="position:relative;">
+        <div id="horloge" style="position:absolute; top:20px; left:20px; font-weight:bold; color:#1abc9c; font-size:18px;">--/--/---- --:--:--</div>
+        
+        <div class="logo-container">
+            <h1>Projet Cirpark</h1>
+            <p>Gestion de parking intelligent</p>
+        </div>
+        
+        <!-- Menu de navigation -->
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Accueil</a></li>
+                <li><a href="#">Historique</a></li>
+                <li><a href="#">Documentation</a></li>
+                <li><a href="#">Équipe</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <!-- Body -->
-  <div class="body">
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <div class="sidebar-label">Projet</div>
-      <button class="sidebar-item active">
-        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1" fill="currentColor"/><rect x="9" y="2" width="5" height="5" rx="1" fill="currentColor"/><rect x="2" y="9" width="5" height="5" rx="1" fill="currentColor"/><rect x="9" y="9" width="5" height="5" rx="1" fill="currentColor"/></svg>
-        Vue d'ensemble
-      </button>
-      <button class="sidebar-item">
-        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Historique
-      </button>
-      <div class="sidebar-label">Ressources</div>
-      <button class="sidebar-item">
-        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="none"><path d="M4 2h5l3 3v9H4V2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M9 2v3h3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
-        Documentation
-      </button>
-      <button class="sidebar-item">
-        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="6" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M2 14c0-3 2.7-5 6-5s6 2 6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        Équipe
-      </button>
-    </div>
+    <!-- Contenu principal -->
+    <main>
+        <div class="description-projet">
+            <h2>Tableau de Bord</h2>
+            <p>Bienvenue sur l'interface de gestion des capteurs du parking.</p>
+        </div>
 
-    <!-- Main -->
-    <div class="main">
-      <div class="page-header">
-        <div class="page-title">Dashboard Cirpark</div>
-        <div class="page-sub">Gestion des capteurs et visualisation du plan</div>
-      </div>
+        <!-- Boutons d'action -->
+        <div class="boutons-container">
+            <!-- Bouton pour voir les capteurs -->
+            <button id="capteursNAV" class="bouton-action btn-vert">
+                <h3>Voir les Capteurs</h3>
+                <p>Affiche la liste détaillée de tous les capteurs en temps réel.</p>
+            </button>
 
-      <!-- Action buttons (capteurs & plan) -->
-      <div class="action-row">
-        <button class="action-btn capteur" id="capteursNAV">
-          <div class="pulse-dot"></div>
-          <div class="orb-wrap">
-            <div class="orb-capteur">
-              <div class="ring r4"></div><div class="ring r3"></div><div class="ring r2"></div><div class="ring r1"></div>
-              <div class="core"></div>
-            </div>
-          </div>
-          <div class="btn-icon">
-            <svg width="20" height="20" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="3.5" fill="#1D9E75"/><circle cx="11" cy="11" r="6.5" stroke="#1D9E75" stroke-width="1" stroke-dasharray="2 2"/><circle cx="11" cy="11" r="9.5" stroke="#5DCAA5" stroke-width="0.8" opacity="0.6"/></svg>
-          </div>
-          <div class="btn-label">Capteurs</div>
-          <div class="btn-desc">Voir la liste de tous les capteurs du parking.</div>
-          <span class="btn-tag">Temps réel</span>
-        </button>
+            <!-- Bouton pour voir le plan -->
+            <button id="planNAV" class="bouton-action btn-bleu">
+                <h3>Voir le Plan</h3>
+                <p>Affiche les places disponibles directement sur le plan.</p>
+            </button>
+        </div>
 
-        <button class="action-btn plan" id="planNAV">
-          <div class="pulse-dot"></div>
-          <div class="orb-wrap">
-            <div class="orb-plan">
-              <svg width="90" height="90" viewBox="0 0 100 100" fill="none"><rect x="10" y="10" width="80" height="80" rx="12" stroke="#378ADD" stroke-width="1.2"/><path d="M10 36h80M36 36v54" stroke="#378ADD" stroke-width="1"/><circle cx="68" cy="68" r="10" fill="#378ADD" opacity="0.15"/><circle cx="68" cy="68" r="4" fill="#378ADD" opacity="0.4"/></svg>
-            </div>
-          </div>
-          <div class="btn-icon">
-            <svg width="20" height="20" viewBox="0 0 22 22" fill="none"><rect x="2" y="2" width="18" height="18" rx="3" stroke="#185FA5" stroke-width="1.3"/><path d="M2 8h18M8 8v12" stroke="#185FA5" stroke-width="1.3"/><circle cx="15" cy="15" r="2.5" fill="#378ADD"/></svg>
-          </div>
-          <div class="btn-label">Plan</div>
-          <div class="btn-desc">Voir les places sur le plan du parking.</div>
-          <span class="btn-tag">Vue plan</span>
-        </button>
-      </div>
+        <!-- Section où l'AJAX va afficher les tableaux ou plans -->
+        <section id="section">
+            <p class="texte-attente">Cliquez sur un des boutons ci-dessus pour charger les données.</p>
+        </section>
+    </main>
 
-      <!-- Section where AJAX content is injected -->
-      <section id="section">
+    <!-- Pied de page -->
+    <footer>
+        <p>Projet réalisé par des Maxime | Ambre | Melissa de BTS CIEL-IR - 1ère année</p>
+    </footer>
 
-      </section>
-    </div>
-  </div>
-</div>
-
-<script src="ajax.js"></script>
+    <!-- Lien vers notre script JavaScript -->
+    <script src="ajax.js"></script>
 </body>
 </html>
