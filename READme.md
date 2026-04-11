@@ -1,9 +1,7 @@
 <div align="center">
   <h1>✨ Une marocaine au portugal ✨</h1>
-    <div class="progressbar" style="--duration: 5s;">
-        <input type="checkbox" id="progress">
-        <label for="progress">23%</label>
-    </div>
+  <p><b>Progression (23%) :</b></p>
+  <p>🟩 🟩 🟩 ⬜ ⬜ ⬜ ⬜ ⬜ ⬜ ⬜ ⬜ ⬜ ⬜</p>
 </div>
 
 ---
